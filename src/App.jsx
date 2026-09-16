@@ -1,13 +1,12 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
-import CollectionSwitcher from './components/CollectionSwitcher';
+import ProductsHeader from './components/ProductsHeader';
 import ProductCard from './components/ProductCard';
 import ProductModal from './components/ProductModal';
 import CartDrawer from './components/CartDrawer';
 import StoresSection from './components/StoresSection';
 import DeliveryCountrywideSection from './components/DeliveryCountrywideSection';
-import MensScalabilityBanner from './components/MensScalabilityBanner';
 import LookbookGallery from './components/LookbookGallery';
 import CustomerReviews from './components/CustomerReviews';
 import FAQSection from './components/FAQSection';
@@ -16,12 +15,9 @@ import Footer from './components/Footer';
 
 import { PRODUCTS } from './data/products';
 import { CONTACT_INFO } from './data/stores';
-import { ShoppingBag, Sparkles, FilterX } from 'lucide-react';
+import { FilterX } from 'lucide-react';
 
 export default function App() {
-  const [activeGender, setActiveGender] = useState('ladies'); // 'ladies' | 'men'
-  const [selectedCategory, setSelectedCategory] = useState('All Ladies');
-  const [selectedOccasion, setSelectedOccasion] = useState('All Occasions');
   const [selectedStore, setSelectedStore] = useState('all'); // 'all' | 'kawangware' | 'muranga'
   const [searchQuery, setSearchQuery] = useState('');
   const [sortBy, setSortBy] = useState('featured');
@@ -47,16 +43,6 @@ export default function App() {
       // Ignore
     }
   }, [cart]);
-
-  // Adjust category default when gender changes
-  const handleGenderChange = (gender) => {
-    setActiveGender(gender);
-    if (gender === 'ladies') {
-      setSelectedCategory('All Ladies');
-    } else {
-      setSelectedCategory('All Men’s');
-    }
-  };
 
   // Add item to cart
   const handleAddToCart = (productWithSelection) => {
@@ -103,25 +89,11 @@ export default function App() {
   // Total items in cart
   const cartCount = cart.reduce((acc, it) => acc + it.quantity, 0);
 
-  // Filter & sort products
-  const filteredProducts = useMemo(() => {
+  // Filter products: ONLY THE FEMALE ONES (ladies)
+  const femaleProducts = useMemo(() => {
     return PRODUCTS.filter((item) => {
-      // Gender filter
-      if (item.gender !== activeGender) return false;
-
-      // Category filter
-      if (
-        selectedCategory !== 'All Ladies' &&
-        selectedCategory !== 'All Men’s' &&
-        item.category !== selectedCategory
-      ) {
-        return false;
-      }
-
-      // Occasion filter
-      if (selectedOccasion !== 'All Occasions' && item.occasion !== selectedOccasion) {
-        return false;
-      }
+      // ONLY FEMALE ONES
+      if (item.gender !== 'ladies') return false;
 
       // Store filter
       if (selectedStore === 'kawangware' && !item.stores.kawangware) {
@@ -149,7 +121,7 @@ export default function App() {
       if (sortBy === 'rating') return b.rating - a.rating;
       return 0; // featured default
     });
-  }, [activeGender, selectedCategory, selectedOccasion, selectedStore, searchQuery, sortBy]);
+  }, [selectedStore, searchQuery, sortBy]);
 
   const handleOpenLookbookProduct = (productId) => {
     const prod = PRODUCTS.find((p) => p.id === productId);
@@ -163,63 +135,51 @@ export default function App() {
       
       {/* Top Navigation */}
       <Navbar
-        activeGender={activeGender}
-        setActiveGender={handleGenderChange}
         cartCount={cartCount}
         setIsCartOpen={setIsCartOpen}
       />
 
       <main className="flex-1">
         {/* Hero Section */}
-        <Hero
-          setActiveGender={handleGenderChange}
-        />
+        <Hero />
 
-        {/* Collection Filter & Department Switcher */}
-        <CollectionSwitcher
-          activeGender={activeGender}
-          setActiveGender={handleGenderChange}
-          selectedCategory={selectedCategory}
-          setSelectedCategory={setSelectedCategory}
-          selectedOccasion={selectedOccasion}
-          setSelectedOccasion={setSelectedOccasion}
-          selectedStore={selectedStore}
-          setSelectedStore={setSelectedStore}
+        {/* Products Page Header & Controls */}
+        <ProductsHeader
           searchQuery={searchQuery}
           setSearchQuery={setSearchQuery}
+          selectedStore={selectedStore}
+          setSelectedStore={setSelectedStore}
           sortBy={sortBy}
           setSortBy={setSortBy}
-          totalResults={filteredProducts.length}
+          totalResults={femaleProducts.length}
         />
 
-        {/* Products Grid */}
+        {/* Products Grid: LIST ONLY FEMALE ONES WITH PRICE KSH, ADD TO CART, AND ORDER [WITH WHATSAPP ICON] */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
-          {filteredProducts.length === 0 ? (
+          {femaleProducts.length === 0 ? (
             <div className="bg-white rounded-3xl p-12 text-center border border-stone-200 shadow-xs max-w-lg mx-auto space-y-4">
               <div className="w-16 h-16 rounded-full bg-rose-50 text-rose-600 flex items-center justify-center mx-auto">
                 <FilterX className="w-8 h-8" />
               </div>
               <h3 className="font-serif-luxury text-xl font-bold text-stone-900">
-                No Matching Outfits Found
+                No Outfits Match Your Search
               </h3>
               <p className="text-xs text-stone-500">
-                Try resetting your filters or search query to view our complete collection.
+                Try resetting your search query or store filter.
               </p>
               <button
                 onClick={() => {
-                  setSelectedCategory(activeGender === 'ladies' ? 'All Ladies' : 'All Men’s');
-                  setSelectedOccasion('All Occasions');
                   setSelectedStore('all');
                   setSearchQuery('');
                 }}
                 className="bg-rose-700 hover:bg-rose-800 text-white px-5 py-2.5 rounded-full text-xs font-bold transition-all cursor-pointer"
               >
-                Reset All Filters
+                Reset Search
               </button>
             </div>
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-              {filteredProducts.map((product) => (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-8">
+              {femaleProducts.map((product) => (
                 <ProductCard
                   key={product.id}
                   product={product}
@@ -230,17 +190,6 @@ export default function App() {
             </div>
           )}
         </div>
-
-        {/* Men's Scalability Banner (if currently in ladies view) */}
-        {activeGender === 'ladies' && (
-          <MensScalabilityBanner
-            onSwitchToMen={() => {
-              handleGenderChange('men');
-              const elem = document.getElementById('catalog');
-              if (elem) elem.scrollIntoView({ behavior: 'smooth' });
-            }}
-          />
-        )}
 
         {/* Lookbook Gallery (verified Kenyan Black Ladies) */}
         <LookbookGallery

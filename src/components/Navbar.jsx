@@ -13,22 +13,10 @@ import {
 import { CONTACT_INFO } from '../data/stores';
 
 export default function Navbar({ 
-  activeGender, 
-  setActiveGender, 
   cartCount, 
-  setIsCartOpen,
-  onNavigateSection
+  setIsCartOpen 
 }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
-  const handleGenderSwitch = (gender) => {
-    setActiveGender(gender);
-    setMobileMenuOpen(false);
-    const catalogElem = document.getElementById('catalog');
-    if (catalogElem) {
-      catalogElem.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
 
   const scrollTo = (id) => {
     setMobileMenuOpen(false);
@@ -44,8 +32,8 @@ export default function Navbar({
       <div className="bg-stone-900 text-stone-100 text-xs py-2 px-4">
         <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2 text-center md:text-left">
           <div className="flex items-center gap-2 mx-auto md:mx-0 font-medium">
-            <span className="inline-flex items-center justify-center bg-rose-600 text-white text-[10px] px-1.5 py-0.5 rounded-full font-bold uppercase tracking-wider animate-pulse">
-              Countrywide
+            <span className="inline-flex items-center justify-center bg-rose-600 text-white text-[10px] px-2 py-0.5 rounded-full font-bold uppercase tracking-wider animate-pulse">
+              Countrywide Delivery
             </span>
             <Truck className="w-3.5 h-3.5 text-amber-400" />
             <span>Fast Delivery to all 47 Counties in Kenya • Same Day in Nairobi & Murang’a</span>
@@ -99,55 +87,32 @@ export default function Navbar({
             </button>
           </div>
 
-          {/* Center Navigation Links & Department Tabs */}
-          <nav className="hidden lg:flex items-center gap-1 bg-stone-100/90 p-1.5 rounded-full border border-stone-200/80">
+          {/* Center Navigation Links - Clean, No Ladies/Men categories */}
+          <nav className="hidden md:flex items-center gap-6">
             <button
-              onClick={() => handleGenderSwitch('ladies')}
-              className={`px-4 py-2 rounded-full text-xs font-bold tracking-wider uppercase transition-all duration-200 flex items-center gap-1.5 cursor-pointer ${
-                activeGender === 'ladies'
-                  ? 'bg-rose-700 text-white shadow-sm'
-                  : 'text-stone-700 hover:text-rose-700 hover:bg-stone-200/60'
-              }`}
+              onClick={() => scrollTo('products-page')}
+              className="text-xs font-bold uppercase tracking-wider text-stone-800 hover:text-rose-700 transition-colors cursor-pointer"
             >
-              <span>👗 Ladies Fashion</span>
-              <span className={`text-[10px] px-1.5 py-0.2 rounded-full ${activeGender === 'ladies' ? 'bg-rose-800 text-rose-100' : 'bg-stone-200 text-stone-600'}`}>
-                Main
-              </span>
+              Products Page
             </button>
-
-            <button
-              onClick={() => handleGenderSwitch('men')}
-              className={`px-4 py-2 rounded-full text-xs font-bold tracking-wider uppercase transition-all duration-200 flex items-center gap-1.5 cursor-pointer ${
-                activeGender === 'men'
-                  ? 'bg-stone-900 text-white shadow-sm'
-                  : 'text-stone-700 hover:text-stone-900 hover:bg-stone-200/60'
-              }`}
-            >
-              <span>👔 Men’s Section</span>
-              <span className="text-[10px] bg-amber-500 text-stone-900 font-bold px-1.5 py-0.2 rounded-full animate-pulse">
-                Scalable
-              </span>
-            </button>
-
-            <span className="w-px h-5 bg-stone-300 mx-1" />
 
             <button
               onClick={() => scrollTo('stores')}
-              className="px-3.5 py-2 text-xs font-semibold text-stone-600 hover:text-rose-700 transition-colors cursor-pointer"
+              className="text-xs font-bold uppercase tracking-wider text-stone-800 hover:text-rose-700 transition-colors cursor-pointer"
             >
               Our 2 Shops
             </button>
 
             <button
               onClick={() => scrollTo('delivery')}
-              className="px-3.5 py-2 text-xs font-semibold text-stone-600 hover:text-rose-700 transition-colors cursor-pointer"
+              className="text-xs font-bold uppercase tracking-wider text-stone-800 hover:text-rose-700 transition-colors cursor-pointer"
             >
               Countrywide Delivery
             </button>
 
             <button
               onClick={() => scrollTo('lookbook')}
-              className="px-3.5 py-2 text-xs font-semibold text-stone-600 hover:text-rose-700 transition-colors cursor-pointer"
+              className="text-xs font-bold uppercase tracking-wider text-stone-800 hover:text-rose-700 transition-colors cursor-pointer"
             >
               Lookbook
             </button>
@@ -184,7 +149,7 @@ export default function Navbar({
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               aria-label="Toggle Menu"
-              className="lg:hidden p-2 rounded-lg text-stone-800 hover:bg-stone-100 cursor-pointer"
+              className="md:hidden p-2 rounded-lg text-stone-800 hover:bg-stone-100 cursor-pointer"
             >
               {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
@@ -194,59 +159,34 @@ export default function Navbar({
 
       {/* Mobile Drawer Menu */}
       {mobileMenuOpen && (
-        <div className="lg:hidden bg-white border-b border-stone-200 px-4 pt-3 pb-6 space-y-4 shadow-xl animate-in slide-in-from-top duration-200">
-          <div className="grid grid-cols-2 gap-2 pt-1">
+        <div className="md:hidden bg-white border-b border-stone-200 px-4 pt-3 pb-6 space-y-4 shadow-xl animate-in slide-in-from-top duration-200">
+          <div className="space-y-2 pt-1 text-sm font-medium">
             <button
-              onClick={() => handleGenderSwitch('ladies')}
-              className={`p-3 rounded-xl text-center font-bold text-sm border cursor-pointer ${
-                activeGender === 'ladies'
-                  ? 'bg-rose-700 text-white border-rose-700'
-                  : 'bg-stone-50 text-stone-800 border-stone-200'
-              }`}
+              onClick={() => scrollTo('products-page')}
+              className="w-full text-left py-2 px-3 rounded-lg hover:bg-stone-50 flex items-center justify-between text-stone-700 font-bold"
             >
-              👗 Ladies Store
-              <span className="block text-[10px] opacity-80 mt-0.5">Primary Collection</span>
-            </button>
-            <button
-              onClick={() => handleGenderSwitch('men')}
-              className={`p-3 rounded-xl text-center font-bold text-sm border cursor-pointer ${
-                activeGender === 'men'
-                  ? 'bg-stone-900 text-white border-stone-900'
-                  : 'bg-stone-50 text-stone-800 border-stone-200'
-              }`}
-            >
-              👔 Men’s Section
-              <span className="block text-[10px] text-amber-500 font-bold mt-0.5">Scalable Line</span>
-            </button>
-          </div>
-
-          <div className="space-y-2 pt-2 border-t border-stone-100 text-sm font-medium">
-            <button
-              onClick={() => scrollTo('catalog')}
-              className="w-full text-left py-2 px-3 rounded-lg hover:bg-stone-50 flex items-center justify-between text-stone-700"
-            >
-              <span>Explore All Catalog</span>
-              <Sparkles className="w-4 h-4 text-amber-500" />
+              <span>Products Page</span>
+              <Sparkles className="w-4 h-4 text-rose-500" />
             </button>
             <button
               onClick={() => scrollTo('stores')}
               className="w-full text-left py-2 px-3 rounded-lg hover:bg-stone-50 flex items-center justify-between text-stone-700"
             >
-              <span>Physical Shops (Kawangware & Murang’a)</span>
+              <span>Physical Shops (1-Kawangware & 2-Murang’a)</span>
               <MapPin className="w-4 h-4 text-rose-500" />
             </button>
             <button
               onClick={() => scrollTo('delivery')}
               className="w-full text-left py-2 px-3 rounded-lg hover:bg-stone-50 flex items-center justify-between text-stone-700"
             >
-              <span>Countrywide Delivery Information</span>
+              <span>Countrywide Delivery</span>
               <Truck className="w-4 h-4 text-sky-500" />
             </button>
             <button
               onClick={() => scrollTo('lookbook')}
               className="w-full text-left py-2 px-3 rounded-lg hover:bg-stone-50 flex items-center justify-between text-stone-700"
             >
-              <span>Fashion Lookbook</span>
+              <span>Lookbook Gallery</span>
               <Heart className="w-4 h-4 text-rose-500" />
             </button>
           </div>

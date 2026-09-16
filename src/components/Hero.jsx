@@ -2,17 +2,16 @@ import React from 'react';
 import { 
   Truck, 
   MapPin, 
-  PhoneCall, 
-  Sparkles, 
   ArrowRight, 
   ShieldCheck, 
   ShoppingBag,
   MessageCircle,
-  Clock
+  Clock,
+  Sparkles
 } from 'lucide-react';
 import { CONTACT_INFO } from '../data/stores';
 
-export default function Hero({ setActiveGender, onOpenWhatsAppChat }) {
+export default function Hero() {
   const scrollTo = (id) => {
     const elem = document.getElementById(id);
     if (elem) {
@@ -22,7 +21,7 @@ export default function Hero({ setActiveGender, onOpenWhatsAppChat }) {
 
   return (
     <section id="hero" className="relative overflow-hidden bg-linear-to-b from-[#FAF6F0] via-[#F5EFE6] to-[#FAF8F5] pt-6 pb-16 md:py-16">
-      {/* Decorative subtle ambient lights */}
+      {/* Decorative ambient lights */}
       <div className="absolute top-0 right-0 -mt-12 -mr-12 w-96 h-96 rounded-full bg-rose-200/30 blur-3xl pointer-events-none" />
       <div className="absolute bottom-0 left-0 -mb-12 -ml-12 w-96 h-96 rounded-full bg-amber-200/25 blur-3xl pointer-events-none" />
 
@@ -35,18 +34,18 @@ export default function Hero({ setActiveGender, onOpenWhatsAppChat }) {
             {/* Top Badge */}
             <div className="inline-flex items-center gap-2 bg-rose-100/80 border border-rose-200/80 px-3.5 py-1.5 rounded-full text-rose-800 text-xs font-semibold">
               <span className="w-2 h-2 rounded-full bg-rose-600 animate-ping" />
-              <span>New Season Drop • Kenya’s Top Ladies Fashion Boutique</span>
+              <span>ZURIMART FASHIONS • Kenya’s Top Ladies Fashion Store</span>
             </div>
 
             {/* Main Headline */}
             <h1 className="font-serif-luxury text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-stone-900 leading-[1.12]">
-              Elevate Your Grace with{' '}
+              Elevate Your Elegance at{' '}
               <span className="text-rose-700 italic">Zurimart Fashions</span>
             </h1>
 
             {/* Sub-headline description */}
             <p className="text-base sm:text-lg text-stone-600 max-w-2xl mx-auto lg:mx-0 leading-relaxed font-normal">
-              Specialists in exquisite <strong className="text-stone-900 font-semibold">ladies dresses, Ankara print fusion, corporate office wear, jumpsuits</strong> and chic casuals. Designed for the confident, elegant woman — with our freshly introduced <strong className="text-stone-900 font-semibold">scalable Men’s Section</strong> for complete wardrobe harmony.
+              Specialists in exquisite ladies fashion: <strong className="text-stone-900 font-semibold">chic dresses, vibrant African Ankara prints, executive corporate suits, and trendy two-piece sets</strong>. Handpicked and tailored for confident, stylish women across Kenya.
             </p>
 
             {/* Quick Key Highlights: Delivery, Shops, WhatsApp */}
@@ -54,7 +53,7 @@ export default function Hero({ setActiveGender, onOpenWhatsAppChat }) {
               <div className="bg-white/80 backdrop-blur-xs border border-stone-200/80 p-3.5 rounded-xl shadow-xs text-left">
                 <div className="flex items-center gap-2 text-rose-700 font-bold text-xs uppercase tracking-wider mb-1">
                   <Truck className="w-4 h-4 text-rose-600 shrink-0" />
-                  <span>Countrywide</span>
+                  <span>Delivery Countrywide</span>
                 </div>
                 <p className="text-xs text-stone-600">
                   Delivery to all <strong className="text-stone-800">47 Counties</strong> in Kenya. Same-day Nairobi & Murang’a.
@@ -85,35 +84,19 @@ export default function Hero({ setActiveGender, onOpenWhatsAppChat }) {
             {/* CTAs */}
             <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3.5 pt-2">
               <button
-                onClick={() => {
-                  setActiveGender('ladies');
-                  scrollTo('catalog');
-                }}
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-rose-700 hover:bg-rose-800 text-white px-7 py-3.5 rounded-full text-sm font-bold shadow-md hover:shadow-lg transition-all active:scale-95 cursor-pointer"
+                onClick={() => scrollTo('products-page')}
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-rose-700 hover:bg-rose-800 text-white px-8 py-3.5 rounded-full text-sm font-bold shadow-md hover:shadow-lg transition-all active:scale-95 cursor-pointer"
               >
                 <ShoppingBag className="w-4 h-4" />
-                <span>Shop Ladies Boutique</span>
+                <span>Shop All Products</span>
                 <ArrowRight className="w-4 h-4" />
-              </button>
-
-              <button
-                onClick={() => {
-                  setActiveGender('men');
-                  scrollTo('catalog');
-                }}
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-stone-900 hover:bg-black text-white px-6 py-3.5 rounded-full text-sm font-bold shadow-md hover:shadow-lg transition-all active:scale-95 cursor-pointer"
-              >
-                <span>👔 Men’s Collection</span>
-                <span className="text-[10px] bg-amber-400 text-stone-900 px-2 py-0.5 rounded-full font-bold">
-                  New
-                </span>
               </button>
 
               <a
                 href={`https://wa.me/${CONTACT_INFO.whatsappRaw}?text=${encodeURIComponent('Hello Zurimart Fashions! I would like to order or inquire about your clothes.')}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white px-5 py-3.5 rounded-full text-sm font-bold shadow-sm hover:shadow-md transition-all active:scale-95"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-3.5 rounded-full text-sm font-bold shadow-sm hover:shadow-md transition-all active:scale-95"
               >
                 <MessageCircle className="w-4 h-4 fill-current" />
                 <span>WhatsApp: 0724 293 125</span>
@@ -141,10 +124,8 @@ export default function Hero({ setActiveGender, onOpenWhatsAppChat }) {
           <div className="lg:col-span-5 relative">
             <div className="relative mx-auto max-w-md lg:max-w-none">
               
-              {/* Backing decorative frame */}
               <div className="absolute -inset-2 rounded-3xl bg-linear-to-tr from-rose-600 via-amber-500 to-rose-400 opacity-20 blur-lg transform -rotate-1" />
 
-              {/* Main Card with verified Kenyan Black Lady photo */}
               <div className="relative rounded-2xl overflow-hidden shadow-2xl border-4 border-white bg-stone-100 group">
                 <img
                   src="/images/ladies/hero-kenyan-lady.jpg"
@@ -153,10 +134,8 @@ export default function Hero({ setActiveGender, onOpenWhatsAppChat }) {
                   loading="eager"
                 />
 
-                {/* Subtle vignette gradient */}
                 <div className="absolute inset-0 bg-linear-to-t from-stone-950/70 via-stone-900/10 to-transparent pointer-events-none" />
 
-                {/* Overlaid Badges */}
                 <div className="absolute top-4 left-4 bg-stone-950/80 backdrop-blur-md text-white text-[11px] font-bold px-3 py-1.5 rounded-full border border-white/20 flex items-center gap-1.5 shadow-md">
                   <Sparkles className="w-3.5 h-3.5 text-amber-400" />
                   <span>Featured: Nairobi Luxe Ankara Blazer Dress</span>
@@ -177,10 +156,7 @@ export default function Hero({ setActiveGender, onOpenWhatsAppChat }) {
                     </p>
                   </div>
                   <button
-                    onClick={() => {
-                      setActiveGender('ladies');
-                      scrollTo('catalog');
-                    }}
+                    onClick={() => scrollTo('products-page')}
                     className="bg-stone-900 hover:bg-rose-700 text-white text-xs font-bold px-3 py-2 rounded-lg transition-colors cursor-pointer"
                   >
                     View

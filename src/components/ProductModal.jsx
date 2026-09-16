@@ -4,7 +4,6 @@ import {
   Star, 
   MapPin, 
   Truck, 
-  ShieldCheck, 
   ShoppingBag, 
   MessageCircle, 
   Plus, 
@@ -44,7 +43,7 @@ export default function ProductModal({
 
   const getDirectWhatsAppUrl = () => {
     const text = `Hello Zurimart Fashions! 👗
-I want to order this item:
+I want to ORDER this item:
 ✨ Product: ${product.name}
 📏 Selected Size: ${selectedSize}
 🎨 Selected Color: ${selectedColor}
@@ -52,7 +51,7 @@ I want to order this item:
 💰 Total: KSh ${(product.price * quantity).toLocaleString()}
 
 📍 My Delivery Town/County: 
-Please advise on dispatch & M-Pesa details. Thank you!`;
+Please advise on dispatch & M-Pesa payment details. Thank you!`;
 
     return `https://wa.me/${CONTACT_INFO.whatsappRaw}?text=${encodeURIComponent(text)}`;
   };
@@ -97,21 +96,15 @@ Please advise on dispatch & M-Pesa details. Thank you!`;
               )}
             </div>
 
-            {/* Note on genuine Kenyan photography */}
             <div className="absolute bottom-4 left-4 right-4 bg-stone-900/80 backdrop-blur-md text-stone-100 text-[11px] p-2.5 rounded-xl border border-white/10 flex items-center gap-2">
               <Sparkles className="w-3.5 h-3.5 text-amber-400 shrink-0" />
-              <span>
-                {product.gender === 'ladies' 
-                  ? 'Authentic Kenyan Ladies Collection • True Kenyan Tailored Sizing'
-                  : 'Zurimart Scalable Men’s Wear • Premium Styling'}
-              </span>
+              <span>Authentic Kenyan Ladies Collection • Model: Kenyan [Black Lady]</span>
             </div>
           </div>
 
           {/* Right Column: Details & Actions */}
           <div className="p-6 md:p-8 flex flex-col justify-between space-y-5">
             <div>
-              {/* Category & Rating */}
               <div className="flex items-center justify-between text-xs text-stone-500 font-semibold mb-2">
                 <span className="text-rose-700 uppercase tracking-wider">{product.category}</span>
                 <div className="flex items-center gap-1 text-amber-500">
@@ -126,7 +119,7 @@ Please advise on dispatch & M-Pesa details. Thank you!`;
                 {product.name}
               </h2>
 
-              {/* Price Row */}
+              {/* Price in KSh */}
               <div className="flex items-baseline gap-3 mt-3">
                 <span className="text-2xl sm:text-3xl font-extrabold text-stone-900">
                   KSh {product.price.toLocaleString()}
@@ -139,7 +132,7 @@ Please advise on dispatch & M-Pesa details. Thank you!`;
                 </span>
               </div>
 
-              {/* Short Description */}
+              {/* Description */}
               <p className="text-xs sm:text-sm text-stone-600 mt-3 leading-relaxed">
                 {product.description}
               </p>
@@ -166,39 +159,11 @@ Please advise on dispatch & M-Pesa details. Thank you!`;
                 </div>
               </div>
 
-              {/* Color Selector */}
-              {product.colors && product.colors.length > 0 && (
-                <div className="mt-4">
-                  <div className="flex items-center justify-between text-xs font-bold text-stone-700 mb-2">
-                    <span>Color: <span className="font-semibold text-rose-700">{selectedColor}</span></span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    {product.colors.map((c) => (
-                      <button
-                        key={c.name}
-                        onClick={() => setSelectedColor(c.name)}
-                        className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-2 border transition-all cursor-pointer ${
-                          selectedColor === c.name
-                            ? 'border-rose-700 bg-rose-50 text-rose-900 ring-2 ring-rose-200'
-                            : 'border-stone-200 bg-white text-stone-700 hover:border-stone-300'
-                        }`}
-                      >
-                        <span 
-                          className="w-3 h-3 rounded-full border border-stone-300"
-                          style={{ backgroundColor: c.hex }}
-                        />
-                        <span>{c.name}</span>
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              )}
-
               {/* Size Selector */}
               <div className="mt-4">
                 <div className="flex items-center justify-between text-xs font-bold text-stone-700 mb-2">
                   <span>Select Size:</span>
-                  <span className="text-[11px] text-stone-500 font-normal">Need sizing help? WhatsApp 0724293125</span>
+                  <span className="text-[11px] text-stone-500 font-normal">Sizing assistance: WhatsApp 0724293125</span>
                 </div>
                 <div className="flex flex-wrap gap-2">
                   {product.sizes.map((sz) => (
@@ -245,54 +210,38 @@ Please advise on dispatch & M-Pesa details. Thank you!`;
                 <div className="text-left text-xs">
                   <div className="font-bold text-amber-900">Delivery Countrywide</div>
                   <div className="text-amber-800 text-[11px]">
-                    Nairobi & Murang’a delivery in 2-4 hrs • Countrywide parcel dispatch within 24 hrs.
+                    Nairobi & Murang’a delivery in 2-4 hrs • All 47 counties within 24 hrs.
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* Action Buttons */}
+            {/* Action Buttons: Add to Cart and Order via WhatsApp */}
             <div className="space-y-2.5 pt-4 border-t border-stone-200">
-              
-              {/* WhatsApp direct order */}
               <a
                 href={getDirectWhatsAppUrl()}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white py-3.5 rounded-2xl font-bold text-sm shadow-md hover:shadow-lg transition-all active:scale-95"
+                className="w-full flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white py-3.5 rounded-2xl font-bold text-sm tracking-wide uppercase shadow-md hover:shadow-lg transition-all active:scale-95"
               >
                 <MessageCircle className="w-5 h-5 fill-current" />
                 <span>Order on WhatsApp (0724 293 125)</span>
               </a>
 
-              {/* Add to Bag */}
               <button
                 onClick={handleAddToCart}
-                className="w-full flex items-center justify-center gap-2 bg-stone-900 hover:bg-black text-white py-3.5 rounded-2xl font-bold text-sm shadow-md hover:shadow-lg transition-all active:scale-95 cursor-pointer"
+                className="w-full flex items-center justify-center gap-2 bg-stone-900 hover:bg-black text-white py-3.5 rounded-2xl font-bold text-sm tracking-wide uppercase shadow-md hover:shadow-lg transition-all active:scale-95 cursor-pointer"
               >
                 <ShoppingBag className="w-4 h-4" />
-                <span>Add {quantity} to Shopping Bag</span>
+                <span>Add to Cart (KSh {(product.price * quantity).toLocaleString()})</span>
               </button>
 
               {addedToast && (
                 <div className="p-2 bg-emerald-100 border border-emerald-300 text-emerald-900 text-xs text-center font-bold rounded-xl animate-in fade-in">
-                  ✓ Added to bag! You can checkout via WhatsApp anytime.
+                  ✓ Added to cart!
                 </div>
               )}
             </div>
-
-            {/* Bullet Details */}
-            {product.details && (
-              <div className="pt-2 text-xs text-stone-500 space-y-1">
-                <div className="font-bold text-stone-700 mb-1">Fabric & Garment Details:</div>
-                {product.details.map((d, i) => (
-                  <div key={i} className="flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-rose-500 shrink-0" />
-                    <span>{d}</span>
-                  </div>
-                ))}
-              </div>
-            )}
 
           </div>
 

@@ -12,7 +12,7 @@ import {
 } from 'lucide-react';
 import { CONTACT_INFO, STORES } from '../data/stores';
 
-export default function Footer({ onNavigateSection }) {
+export default function Footer() {
   const scrollTo = (id) => {
     const elem = document.getElementById(id);
     if (elem) {
@@ -81,7 +81,7 @@ export default function Footer({ onNavigateSection }) {
             </div>
 
             <p className="text-xs sm:text-sm text-stone-400 leading-relaxed">
-              Kenya’s premier fashion boutique specializing in elegant ladies dresses, authentic Ankara fusion, executive workwear suits, and stylish coords — plus our scalable Men’s Collection designed for timeless modern style.
+              Kenya’s premier ladies fashion boutique specializing in chic dresses, authentic Ankara prints, executive corporate wear, and two-piece coords tailored to celebrate elegance and grace.
             </p>
 
             <div className="pt-2">
@@ -129,20 +129,15 @@ export default function Footer({ onNavigateSection }) {
             </div>
           </div>
 
-          {/* Quick Links & Countrywide Delivery */}
+          {/* Quick Links */}
           <div className="lg:col-span-2 space-y-3">
             <h4 className="text-xs font-bold text-white uppercase tracking-wider">
               Quick Links
             </h4>
             <ul className="space-y-2 text-xs text-stone-400">
               <li>
-                <button onClick={() => scrollTo('catalog')} className="hover:text-rose-400 transition-colors cursor-pointer">
-                  👗 Ladies Collection
-                </button>
-              </li>
-              <li>
-                <button onClick={() => scrollTo('catalog')} className="hover:text-amber-400 transition-colors cursor-pointer">
-                  👔 Men’s Section (Scalable)
+                <button onClick={() => scrollTo('products-page')} className="hover:text-rose-400 transition-colors cursor-pointer">
+                  👗 Products Page
                 </button>
               </li>
               <li>
@@ -172,7 +167,7 @@ export default function Footer({ onNavigateSection }) {
           © {new Date().getFullYear()} <strong className="text-stone-300">Zurimart Fashions</strong>. All Rights Reserved.
         </div>
         <div className="flex items-center gap-1.5 text-stone-400">
-          <span>Proudly Serving Kenyan Fashionistas</span>
+          <span>Serving Kenyan Fashionistas</span>
           <span>•</span>
           <span className="text-emerald-400 font-semibold">Delivery Countrywide 🇰🇪</span>
         </div>
